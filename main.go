@@ -1,15 +1,29 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"os"
+
+	"github.com/joho/godotenv"
 )
+
+func init() {
+	godotenv.Load()
+}
 
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /", Index)
 
+	port := os.Getenv("PORT")
+	if port == "" {
+		panic("PORT is not set")
+	}
+
+	addr := fmt.Sprintf(":%s", port)
 	server := &http.Server{
-		Addr:    ":8080",
+		Addr:    addr,
 		Handler: mux,
 	}
 
