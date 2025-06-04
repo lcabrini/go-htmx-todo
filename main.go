@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log/slog"
 	"net/http"
 	"os"
 
@@ -27,6 +28,7 @@ func main() {
 		Handler: mux,
 	}
 
+	slog.Info("Starting server", "port", os.Getenv("PORT"))
 	server.ListenAndServe()
 }
 
