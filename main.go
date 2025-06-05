@@ -47,6 +47,8 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /", app.Index)
 	mux.HandleFunc("GET /tasks/", app.TaskListHandler)
+	mux.HandleFunc("GET /tasks/new/", app.AddTaskForm)
+	mux.HandleFunc("POST /tasks/add/", app.CreateTaskHandler)
 
 	port := os.Getenv("PORT")
 	if port == "" {

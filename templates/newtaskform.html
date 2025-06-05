@@ -1,0 +1,25 @@
+{{define "newtaskform"}}
+    <form>
+        <fieldset>
+            <label>Title
+                <input name="title" placeholder="Title" />
+            </label>
+
+            <label>Description
+                <textarea name="description"></textarea>
+            </label>
+
+            <label>Priority
+                <select name="priority">
+                    <option selected>Medium</option>
+                    <option>Low</option>
+                    <option>High</option>
+                </select>
+            </label>
+        </fieldset>
+
+        <button hx-post="/tasks/add/" hx-target="#tasklist" hx-target="innerHTML">
+            Save
+        </button>
+    </form>
+{{end}}

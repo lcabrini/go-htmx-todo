@@ -3,7 +3,6 @@
 {{define "content"}}
   <div class="grid">
     <div id="tasklist" hx-get="/tasks" hx-trigger="load" hx-swap="innerHTML"></div>
-    <div>Foo!</div>
+    <div id="newtaskform">{{template "newtaskform"}}</div>
   </div>
-
 {{end}}
