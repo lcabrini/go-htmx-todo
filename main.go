@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"embed"
 	"fmt"
+	"html/template"
 	"log/slog"
 	"net/http"
 	"os"
@@ -15,6 +17,10 @@ import (
 type App struct {
 	DB *database.Queries
 }
+
+//go:embed templates/*
+var templates embed.FS
+var t = template.Must(template.ParseFS(templates, "templates/*"))
 
 func init() {
 	godotenv.Load()
@@ -58,6 +64,7 @@ func main() {
 }
 
 func (a *App) Index(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Hello world!"))
+	if err := t.ExecuteTemplate(w, "index.html", nil); err != nil {
+		http.Error(w, "Error", http.StatusInternalServerError)
+	}
 }
