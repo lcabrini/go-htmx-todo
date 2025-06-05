@@ -9,13 +9,17 @@ import (
 	"github.com/joho/godotenv"
 )
 
+type App struct{}
+
 func init() {
 	godotenv.Load()
 }
 
 func main() {
+	app := App{}
+
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /", Index)
+	mux.HandleFunc("GET /", app.Index)
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -32,7 +36,7 @@ func main() {
 	server.ListenAndServe()
 }
 
-func Index(w http.ResponseWriter, r *http.Request) {
+func (a *App) Index(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Hello world!"))
 }
