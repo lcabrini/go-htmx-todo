@@ -1,0 +1,8 @@
+{{define "tasklist"}}
+    {{range .}}
+        <details>
+            <summary role="button" class="secondary">{{.Title}}</summary>
+            <p>{{.Description}}</p>
+        </details>
+    {{end}}
+{{end}}

@@ -1,5 +1,6 @@
 {{template "layout.html" .}}
 
 {{define "content"}}
-<h1>Hello world!</h1>
+  <div id="tasklist" hx-get="/tasks" hx-trigger="load" hx-swap="innerHTML">
+  </div>
 {{end}}
