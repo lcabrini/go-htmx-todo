@@ -20,6 +20,7 @@ update tasks set
     title = $2,
     description = $3,
     priority = $4,
+    completed = $5,
     updated_at = current_timestamp
 where id = $1
 returning *;

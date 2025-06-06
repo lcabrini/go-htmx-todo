@@ -8,7 +8,7 @@ package database
 import (
 	"context"
 
-	"github.com/jackc/pgx/v5/pgtype"
+	"github.com/google/uuid"
 )
 
 const createTask = `-- name: CreateTask :one
@@ -45,7 +45,7 @@ delete from tasks
 where id = $1
 `
 
-func (q *Queries) DeleteTask(ctx context.Context, id pgtype.UUID) error {
+func (q *Queries) DeleteTask(ctx context.Context, id uuid.UUID) error {
 	_, err := q.db.Exec(ctx, deleteTask, id)
 	return err
 }
@@ -56,7 +56,7 @@ select id, title, description, priority, created_at, updated_at, completed from 
 where id = $1 limit 1
 `
 
-func (q *Queries) GetTask(ctx context.Context, id pgtype.UUID) (Task, error) {
+func (q *Queries) GetTask(ctx context.Context, id uuid.UUID) (Task, error) {
 	row := q.db.QueryRow(ctx, getTask, id)
 	var i Task
 	err := row.Scan(
@@ -111,16 +111,18 @@ update tasks set
     title = $2,
     description = $3,
     priority = $4,
+    completed = $5,
     updated_at = current_timestamp
 where id = $1
 returning id, title, description, priority, created_at, updated_at, completed
 `
 
 type UpdateTaskParams struct {
-	ID          pgtype.UUID
+	ID          uuid.UUID
 	Title       string
 	Description string
 	Priority    Priorities
+	Completed   bool
 }
 
 func (q *Queries) UpdateTask(ctx context.Context, arg UpdateTaskParams) (Task, error) {
@@ -129,6 +131,7 @@ func (q *Queries) UpdateTask(ctx context.Context, arg UpdateTaskParams) (Task, e
 		arg.Title,
 		arg.Description,
 		arg.Priority,
+		arg.Completed,
 	)
 	var i Task
 	err := row.Scan(

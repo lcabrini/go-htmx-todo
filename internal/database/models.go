@@ -8,6 +8,7 @@ import (
 	"database/sql/driver"
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
@@ -55,7 +56,7 @@ func (ns NullPriorities) Value() (driver.Value, error) {
 }
 
 type Task struct {
-	ID          pgtype.UUID
+	ID          uuid.UUID
 	Title       string
 	Description string
 	Priority    Priorities
