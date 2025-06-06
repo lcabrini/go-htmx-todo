@@ -9,6 +9,10 @@ My own contribution to the world of basic Todo-list apps. I am using:
 1. [Pico CSS](https://picocss.com/)
 1. [Goose](https://pressly.github.io/goose/)
 
+## Credits
+
+The following was my primary inspiration: [HTMX + Go : Build a CRUD App with Golang and HTMX](https://coderonfleek.medium.com/htmx-go-build-a-crud-app-with-golang-and-htmx-081383026466)
+
 ## Setting up
 
 Make sure you have goose installed:

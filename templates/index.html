@@ -1,6 +1,8 @@
 {{template "layout.html" .}}
 
 {{define "content"}}
+  <h1>Tasks</h1>
+  <a href="#" role="button" class="primary" hx-get="/tasks/new" hx-target="#newtaskform">Add Task</a>
   <div class="grid">
     <div id="tasklist" hx-get="/tasks" hx-trigger="load" hx-swap="innerHTML"></div>
     <div id="newtaskform">{{template "newtaskform"}}</div>
