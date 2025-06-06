@@ -5,6 +5,9 @@
                 <span {{if .Completed}} style="text-decoration:line-through" {{end}}>{{.Title}}</span>
             </summary>
             <p>{{.Description}}</p>
+            <hr />
+            <a href="#" role="button" class="primary" hx-get="/tasks/{{.ID}}/" hx-target="#newtaskform" hx-swap="innerHTML">Edit</a>
+            <a href="#" role="button" class="secondary">Delete</a>
         </details>
     {{end}}
 {{end}}

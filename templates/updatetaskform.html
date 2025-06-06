@@ -1,0 +1,30 @@
+{{define "updatetaskform"}}
+    <form>
+        <fieldset>
+            <label>Title
+                <input name="title" placeholder="Title" value="{{.Title}}"/>
+            </label>
+
+            <label>Description
+                <textarea name="description">{{.Description}}</textarea>
+            </label>
+
+            <label>Priority
+                <select name="priority">
+                    <option {{if eq .Priority "medium"}}selected{{end}}>Medium</option>
+                    <option {{if eq .Priority "low"}}selected{{end}}>Low</option>
+                    <option {{if eq .Priority "high"}}selected{{end}}>High</option>
+                </select>
+            </label>
+
+            <label>
+                <input name="completed" type="checkbox" role="switch" {{if .Completed}}checked{{end}} />
+                Completed
+            </label>
+        </fieldset>
+
+        <button hx-put="/tasks/{{.ID}}/" hx-target="#tasklist" hx-target="innerHTML">
+            Update
+        </button>
+    </form>
+{{end}}

@@ -49,6 +49,9 @@ func main() {
 	mux.HandleFunc("GET /tasks/", app.TaskListHandler)
 	mux.HandleFunc("GET /tasks/new/", app.AddTaskForm)
 	mux.HandleFunc("POST /tasks/new/", app.CreateTaskHandler)
+	mux.HandleFunc("GET /tasks/{id}/", app.UpdateTaskForm)
+	mux.HandleFunc("PUT /tasks/{id}/", app.UpdateTaskHandler)
+	mux.HandleFunc("DELETE /tasks/{id}/", app.DeleteTaskHandler)
 
 	port := os.Getenv("PORT")
 	if port == "" {
