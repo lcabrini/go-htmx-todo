@@ -1,7 +1,7 @@
 {{define "tasklist"}}
     {{range .}}
         <details>
-            <summary role="button" class="secondary">
+            <summary role="button" {{if eq .Priority "high" }}class="primary"{{else if eq .Priority "low"}}class="secondary outline"{{else}}class="secondary"{{end}}>
                 <span {{if .Completed}} style="text-decoration:line-through" {{end}}>{{.Title}}</span>
             </summary>
             <p>{{.Description}}</p>
