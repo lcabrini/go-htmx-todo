@@ -61,4 +61,5 @@ type Task struct {
 	Priority    Priorities
 	CreatedAt   pgtype.Timestamp
 	UpdatedAt   pgtype.Timestamp
+	Completed   bool
 }

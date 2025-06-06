@@ -15,7 +15,7 @@ const createTask = `-- name: CreateTask :one
 
 insert into tasks(title, description, priority)
 values($1, $2, $3)
-returning id, title, description, priority, created_at, updated_at
+returning id, title, description, priority, created_at, updated_at, completed
 `
 
 type CreateTaskParams struct {
@@ -34,6 +34,7 @@ func (q *Queries) CreateTask(ctx context.Context, arg CreateTaskParams) (Task, e
 		&i.Priority,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.Completed,
 	)
 	return i, err
 }
@@ -51,7 +52,7 @@ func (q *Queries) DeleteTask(ctx context.Context, id pgtype.UUID) error {
 
 const getTask = `-- name: GetTask :one
 
-select id, title, description, priority, created_at, updated_at from tasks
+select id, title, description, priority, created_at, updated_at, completed from tasks
 where id = $1 limit 1
 `
 
@@ -65,13 +66,14 @@ func (q *Queries) GetTask(ctx context.Context, id pgtype.UUID) (Task, error) {
 		&i.Priority,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.Completed,
 	)
 	return i, err
 }
 
 const listTasks = `-- name: ListTasks :many
 
-select id, title, description, priority, created_at, updated_at from tasks
+select id, title, description, priority, created_at, updated_at, completed from tasks
 order by created_at
 `
 
@@ -91,6 +93,7 @@ func (q *Queries) ListTasks(ctx context.Context) ([]Task, error) {
 			&i.Priority,
 			&i.CreatedAt,
 			&i.UpdatedAt,
+			&i.Completed,
 		); err != nil {
 			return nil, err
 		}
@@ -110,7 +113,7 @@ update tasks set
     priority = $4,
     updated_at = current_timestamp
 where id = $1
-returning id, title, description, priority, created_at, updated_at
+returning id, title, description, priority, created_at, updated_at, completed
 `
 
 type UpdateTaskParams struct {
@@ -135,6 +138,7 @@ func (q *Queries) UpdateTask(ctx context.Context, arg UpdateTaskParams) (Task, e
 		&i.Priority,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.Completed,
 	)
 	return i, err
 }
