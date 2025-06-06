@@ -100,5 +100,7 @@ func (app *App) UpdateTaskHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *App) DeleteTaskHandler(w http.ResponseWriter, r *http.Request) {
-
+	id, _ := uuid.Parse(r.PathValue("id"))
+	app.DB.DeleteTask(context.Background(), id)
+	app.TaskListHandler(w, r)
 }
